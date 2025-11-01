@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Header from './components/Header';
 import FileUpload from './components/FileUpload';
@@ -215,7 +216,7 @@ const App: React.FC = () => {
             case 'improving':
                 return <LoadingSpinner message="Mejorando el plan de pruebas con IA..." />;
             case 'error':
-                return <ErrorMessage message={error || 'Ocurrió un error desconocido.'} />;
+                return <ErrorMessage message={error || 'Ocurrió un error desconocido.'} onReset={resetState} />;
             case 'success':
                 return testPlans ? (
                     <TestPlanDisplay 
@@ -243,7 +244,7 @@ const App: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col font-sans text-gray-900 dark:text-gray-100">
             <Header />
-            <main ref={mainRef} className="flex-grow container mx-auto px-4 py-8">
+            <main ref={mainRef} className="flex-grow container mx-auto px-4 py-8 flex flex-col justify-center">
                 {status === 'idle' || status === 'error' ? (
                     <div className="mb-8 space-y-6">
                          <div className="w-full max-w-2xl mx-auto">
@@ -304,8 +305,8 @@ const App: React.FC = () => {
                     />
                 )}
             </main>
-            <footer className="text-center p-4 text-sm text-gray-500 dark:text-gray-400">
-                Desarrollado con React, Tailwind CSS y la API de Gemini.
+            <footer className="text-center text-sm text-gray-500 dark:text-gray-400 py-6">
+              Ministerio de Ambiente y Desarrollo Sostenible - Oficina TIC © 2025
             </footer>
         </div>
     );
