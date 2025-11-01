@@ -1,0 +1,5 @@
+{
+  "name": "Generador de Casos de Prueba con IA",
+  "description": "Una aplicación web para generar casos de prueba a partir de historias de usuario en formato PDF utilizando la API de Gemini. Sube un PDF y obtén casos de prueba estructurados al instante que cumple criterios de la Entidad y estándares de amplio reconocimiento para la calidad del software.",
+  "requestFramePermissions": []
+}
