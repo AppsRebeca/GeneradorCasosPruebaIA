@@ -1,19 +1,19 @@
-name: Deploy Vite app to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]  # se ejecuta cada vez que haces commit en main
+    branches:
+      - main  # se ejecuta en cada commit en la rama main
+
+permissions:
+  contents: write  # permite crear/actualizar la rama gh-pages
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-permissions:
-      contents: write      
-      concurrency:
-      group: "pages"
-      cancel-in-progress: true
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -22,13 +22,14 @@ permissions:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build project
+      - name: Build Vite app
         run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
           publish_dir: ./dist
