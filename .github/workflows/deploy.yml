@@ -1,12 +1,12 @@
-name: Build and Deploy to GitHub Pages
+name: Deploy Vite + React app to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # se ejecuta en cada commit en la rama main
+      - main
 
 permissions:
-  contents: write  # permite crear/actualizar la rama gh-pages
+  contents: write  # Necesario para crear la rama gh-pages
 
 jobs:
   deploy:
@@ -24,10 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Vite app
+      - name: Build project
         run: npm run build
 
-      - name: Deploy to gh-pages branch
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-files
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
